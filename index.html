@@ -146,95 +146,202 @@ body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-weight:40
 .feat-desc{font-size:13px;color:var(--muted-fg);line-height:1.6;}
 
 /* ===== DASHBOARD ===== */
-#dashboard{border-top:1px solid rgba(255,255,255,.08);}
-.d-label{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:16px;}
+#dashboard{border-top:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;}
+/* Subtle floating orbs behind dashboard */
+#dashboard::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(120,80,255,.06) 0%,transparent 70%);top:-200px;right:-150px;pointer-events:none;animation:orbf 10s ease-in-out infinite;}
+#dashboard::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,180,120,.05) 0%,transparent 70%);bottom:-100px;left:-100px;pointer-events:none;animation:orbf 13s ease-in-out infinite reverse;}
+@keyframes orbf{0%,100%{transform:scale(1) translate(0,0);}50%{transform:scale(1.1) translate(20px,-20px);}}
+.d-label{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;}
 .d-h{font-weight:500;font-size:clamp(36px,5vw,60px);line-height:.9;letter-spacing:-2px;color:#fff;margin-bottom:48px;}
 .d-h em{font-family:var(--serif);font-style:italic;font-weight:400;}
+
+/* Stat cards — glassy */
 .stat-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px;}
 @media(min-width:768px){.stat-row{grid-template-columns:repeat(4,1fr);}}
-.st-c{border-radius:14px;padding:18px;background:var(--card-bg);border:1px solid var(--border-c);}
-.st-ico{width:32px;height:32px;border-radius:9px;background:hsl(0,0%,10%);border:1px solid var(--border-c);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.st-c{border-radius:16px;padding:20px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.st-c:hover{border-color:rgba(255,255,255,.15);transform:translateY(-2px);}
+.st-c::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 50%,rgba(255,255,255,.06) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+.st-ico{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
 .st-ico svg{width:16px;height:16px;fill:#fff;}
-.st-val{font-family:var(--serif);font-style:italic;font-size:28px;color:#fff;line-height:1;letter-spacing:-1px;}
-.st-lbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:5px;}
-.d-layout{display:grid;grid-template-columns:1fr;gap:12px;}
-@media(min-width:768px){.d-layout{grid-template-columns:210px 1fr;}}
+.st-val{font-family:var(--serif);font-style:italic;font-size:30px;color:#fff;line-height:1;letter-spacing:-1px;}
+.st-lbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:6px;}
 
-/* sidebar */
-.side{border-radius:16px;padding:12px 8px;background:var(--card-bg);border:1px solid var(--border-c);height:fit-content;}
-.side-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:4px 10px 8px;}
-.sb{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9999px;background:none;border:none;width:100%;text-align:left;font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,.45);cursor:none;transition:all .2s;margin-bottom:3px;}
-.sb:hover{color:#fff;background:rgba(255,255,255,.05);}
-.sb.on{color:#fff;background:rgba(255,255,255,.1);}
+.d-layout{display:grid;grid-template-columns:1fr;gap:14px;}
+@media(min-width:768px){.d-layout{grid-template-columns:220px 1fr;}}
+
+/* ===== SIDEBAR ===== */
+.side{border-radius:18px;padding:14px 10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);height:fit-content;backdrop-filter:blur(20px);}
+.side-lbl{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:4px 10px 10px;}
+.sb{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:9999px;background:none;border:none;width:100%;text-align:left;font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,.4);cursor:none;transition:all .25s;margin-bottom:4px;}
+.sb:hover{color:#fff;background:rgba(255,255,255,.06);}
+.sb.on{color:#fff;background:rgba(255,255,255,.09);box-shadow:inset 0 1px rgba(255,255,255,.1);}
 .sb svg{width:14px;height:14px;fill:currentColor;flex-shrink:0;}
-.side-info{margin-top:10px;border-radius:10px;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);}
-.si-r{display:flex;justify-content:space-between;font-size:11px;font-family:var(--sans);margin-bottom:5px;color:rgba(255,255,255,.3);}
+.side-info{margin-top:12px;border-radius:12px;padding:13px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);}
+.si-r{display:flex;justify-content:space-between;font-size:11px;font-family:var(--sans);margin-bottom:6px;color:rgba(255,255,255,.28);}
 .si-r:last-child{margin-bottom:0;}
-.si-r span:last-child{color:rgba(255,255,255,.65);}
+.si-r span:last-child{color:rgba(255,255,255,.6);}
 
-/* main panel */
-.mpanel{border-radius:16px;background:var(--card-bg);border:1px solid var(--border-c);overflow:hidden;display:flex;flex-direction:column;}
-.p-hd{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07);}
-.p-title-row{display:flex;align-items:center;gap:8px;}
+/* ===== MAIN PANEL ===== */
+.mpanel{border-radius:18px;background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.08);overflow:hidden;display:flex;flex-direction:column;backdrop-filter:blur(20px);position:relative;}
+.mpanel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);pointer-events:none;}
+.p-hd{padding:15px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015);}
+.p-title-row{display:flex;align-items:center;gap:9px;}
 .p-title-row h2{font-family:var(--serif);font-style:italic;font-size:18px;color:#fff;}
-.p-chip{border-radius:9999px;padding:2px 10px;background:rgba(255,255,255,.06);font-family:monospace;font-size:10px;color:rgba(255,255,255,.45);}
-.p-acts{display:flex;gap:6px;}
-.pa{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:9999px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:none;border:none;transition:all .2s;}
+.p-chip{border-radius:9999px;padding:3px 11px;background:rgba(255,255,255,.07);font-family:monospace;font-size:10px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.08);}
+.p-acts{display:flex;gap:7px;}
+.pa{display:inline-flex;align-items:center;gap:5px;padding:7px 15px;border-radius:9999px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:none;border:none;transition:all .2s;}
 .pa.pri{background:#fff;color:#000;}
 .pa.pri:hover{opacity:.85;}
-.pa.gh{background:rgba(255,255,255,.07);color:#fff;}
-.pa.gh:hover{background:rgba(255,255,255,.12);}
+.pa.gh{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);}
+.pa.gh:hover{background:rgba(255,255,255,.14);}
 .pa svg{width:12px;height:12px;}
 
-/* file list */
-.flist{padding:4px;}
-.frow{display:grid;grid-template-columns:1fr auto;align-items:center;padding:11px 14px;border-radius:10px;transition:background .15s;}
-.frow:hover{background:rgba(255,255,255,.03);}
-.frow.cloud-row{animation:fi .3s ease;}
-@keyframes fi{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-.fi{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.fi.folder{background:rgba(255,200,60,.08);color:hsl(40,70%,55%);}
-.fi.folder.sp{background:rgba(255,255,255,.07);color:#fff;animation:gsp 2.5s ease-in-out infinite;}
-@keyframes gsp{0%,100%{box-shadow:none;}50%{box-shadow:0 0 10px rgba(255,255,255,.15);}}
-.fi.file{background:rgba(255,255,255,.05);color:rgba(255,255,255,.3);}
+/* ===== FILE LIST — CATCH SECTION ===== */
+.flist{padding:6px;}
+/* Catch mode special background */
+.flist.catch-mode{
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(120,80,255,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,160,100,.04) 0%, transparent 60%);
+}
+.frow{display:grid;grid-template-columns:1fr auto;align-items:center;padding:11px 15px;border-radius:11px;transition:background .15s,transform .15s;}
+.frow:hover{background:rgba(255,255,255,.04);transform:translateX(2px);}
+.frow.cloud-row{animation:fi .4s cubic-bezier(.22,1,.36,1);}
+@keyframes fi{from{opacity:0;transform:translateY(6px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+/* Folder/file icons */
+.fi{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fi.folder{background:rgba(255,185,40,.09);color:rgba(255,185,40,.75);}
+/* CATCH folder — glowing special */
+.fi.folder.sp{
+  background:linear-gradient(135deg,rgba(120,80,255,.2),rgba(0,200,120,.15));
+  color:#fff;
+  box-shadow:0 0 0 0 rgba(120,80,255,.4);
+  animation:catch-glow 2.8s ease-in-out infinite;
+}
+@keyframes catch-glow{
+  0%,100%{box-shadow:0 0 0 0 rgba(120,80,255,.3),inset 0 0 0 rgba(120,80,255,0);}
+  50%{box-shadow:0 0 16px 2px rgba(120,80,255,.25),inset 0 0 8px rgba(0,200,120,.1);}
+}
+.fi.file{background:rgba(255,255,255,.05);color:rgba(255,255,255,.28);}
 .fi svg{width:15px;height:15px;}
+
+/* Cloud files get a subtle left accent */
+.frow.cloud-row .fi{box-shadow:0 0 0 1px rgba(255,255,255,.1);}
+
 .fn{font-size:13px;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fn.sp{color:rgba(255,255,255,.85);}
-.fm{font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
-.lock-ico{width:10px;height:10px;opacity:.15;fill:#fff;}
-.dbtn{width:28px;height:28px;border-radius:9999px;background:rgba(255,50,50,.08);color:rgba(255,80,80,.55);border:1px solid rgba(255,50,50,.12);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s;}
-.dbtn:hover{background:rgba(255,50,50,.65);color:#fff;border-color:transparent;}
+.fn.sp{
+  background:linear-gradient(90deg,#a78bff,#34d399);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.fm{font-size:10px;color:rgba(255,255,255,.22);font-family:monospace;text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+.fm .cloud-badge{background:rgba(100,80,255,.2);color:rgba(160,140,255,.9);border-radius:4px;padding:1px 5px;font-size:9px;border:1px solid rgba(100,80,255,.25);}
+.lock-ico{width:10px;height:10px;opacity:.12;fill:#fff;}
+.dbtn{width:28px;height:28px;border-radius:9999px;background:rgba(255,50,50,.07);color:rgba(255,80,80,.5);border:1px solid rgba(255,50,50,.1);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s;}
+.dbtn:hover{background:rgba(255,50,50,.6);color:#fff;border-color:transparent;box-shadow:0 0 10px rgba(255,50,50,.3);}
 .dbtn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;}
 
-/* log */
-.log-bar{padding:10px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.07);}
-.ldot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pd 1.8s infinite;}
-@keyframes pd{0%,100%{opacity:1;}50%{opacity:.35;}}
-.llbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);}
-.log-inp-r{padding:10px 14px;display:flex;gap:6px;border-bottom:1px solid rgba(255,255,255,.07);}
-.linp{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 12px;color:#fff;font-family:monospace;font-size:13px;outline:none;transition:border-color .2s;}
-.linp:focus{border-color:rgba(255,255,255,.25);}
-.linp::placeholder{color:rgba(255,255,255,.18);}
-.lsend{border-radius:8px;padding:9px 14px;background:#fff;color:#000;border:none;cursor:none;font-family:var(--sans);font-weight:700;font-size:12px;display:flex;align-items:center;gap:5px;transition:opacity .2s;}
-.lsend:hover{opacity:.85;}
+/* Catch section header bar */
+.catch-header{
+  padding:12px 20px;
+  display:flex;align-items:center;gap:10px;
+  background:linear-gradient(90deg,rgba(120,80,255,.06),rgba(0,180,100,.04),transparent);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.catch-pulse{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#a78bff,#34d399);animation:cpulse 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes cpulse{0%,100%{box-shadow:0 0 0 0 rgba(167,139,255,.6);}50%{box-shadow:0 0 0 6px rgba(167,139,255,0);}}
+.catch-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  background:linear-gradient(90deg,#a78bff,#34d399);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.catch-count{margin-left:auto;font-size:11px;font-family:monospace;color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:9999px;border:1px solid rgba(255,255,255,.07);}
+
+/* Decorative grid lines behind catch area */
+.catch-grid-bg{
+  position:relative;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+
+/* ===== AI CODE LOG ===== */
+.log-bar{
+  padding:12px 20px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(0,0,0,.3);
+}
+.ldot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;animation:pd 1.8s infinite;flex-shrink:0;}
+@keyframes pd{0%,100%{opacity:1;}50%{opacity:.3;}}
+.llbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.log-live-badge{margin-left:auto;font-size:10px;font-family:monospace;color:#4ade80;background:rgba(74,222,128,.08);padding:2px 8px;border-radius:9999px;border:1px solid rgba(74,222,128,.15);}
+
+.log-inp-r{padding:12px 16px;display:flex;gap:7px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.2);}
+.linp{
+  flex:1;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:10px 14px;color:#fff;
+  font-family:monospace;font-size:13px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.linp:focus{border-color:rgba(255,255,255,.22);box-shadow:0 0 0 3px rgba(255,255,255,.04);}
+.linp::placeholder{color:rgba(255,255,255,.16);}
+.lsend{border-radius:10px;padding:10px 15px;background:#fff;color:#000;border:none;cursor:none;font-family:var(--sans);font-weight:700;font-size:12px;display:flex;align-items:center;gap:5px;transition:opacity .2s,transform .15s;}
+.lsend:hover{opacity:.88;transform:scale(1.03);}
 .lsend svg{width:12px;height:12px;fill:currentColor;}
-.lclr{border-radius:8px;padding:9px 12px;background:rgba(255,45,45,.08);color:rgba(255,80,80,.8);border:1px solid rgba(255,45,45,.15);cursor:none;font-family:var(--sans);font-weight:600;font-size:12px;display:flex;align-items:center;gap:5px;transition:all .2s;}
-.lclr:hover{background:rgba(255,45,45,.2);}
+.lclr{border-radius:10px;padding:10px 12px;background:rgba(255,45,45,.07);color:rgba(255,90,90,.75);border:1px solid rgba(255,45,45,.12);cursor:none;font-family:var(--sans);font-weight:600;font-size:12px;display:flex;align-items:center;gap:5px;transition:all .2s;}
+.lclr:hover{background:rgba(255,45,45,.18);color:rgba(255,120,120,.95);box-shadow:0 0 12px rgba(255,45,45,.15);}
 .lclr svg{width:12px;height:12px;fill:currentColor;}
-.code-area{background:#050505;color:#b0b8d8;padding:14px 16px;font-family:monospace;font-size:12.5px;line-height:1.75;max-height:520px;overflow-y:auto;}
-.code-area::-webkit-scrollbar{width:5px;}
-.code-area::-webkit-scrollbar-track{background:transparent;}
-.code-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.07);border-radius:3px;}
-.cl{display:flex;gap:12px;padding:1px 0;}
-.cl:hover{background:rgba(255,255,255,.02);border-radius:3px;}
-.cl.user-cl{border-left:2px solid rgba(100,160,255,.45);padding-left:7px;background:rgba(100,160,255,.025);}
-.ln{color:#252840;width:34px;text-align:right;flex-shrink:0;user-select:none;font-weight:700;}
+
+/* CODE AREA — terminal look with grid bg */
+.code-area{
+  background:#030308;
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:100% 28px, 60px 100%;
+  color:#c4cce8;
+  padding:16px 18px;
+  font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;
+  font-size:12.5px;line-height:1.75;
+  max-height:560px;overflow-y:auto;
+  position:relative;
+}
+/* Terminal scanline effect */
+.code-area::before{
+  content:'';position:sticky;top:0;left:0;right:0;height:100%;
+  background:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(255,255,255,.012) 27px,rgba(255,255,255,.012) 28px);
+  pointer-events:none;
+}
+.code-area::-webkit-scrollbar{width:6px;}
+.code-area::-webkit-scrollbar-track{background:rgba(255,255,255,.02);}
+.code-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px;}
+.code-area::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18);}
+.cl{display:flex;gap:14px;padding:1px 0;border-radius:4px;}
+.cl:hover{background:rgba(255,255,255,.03);}
+/* User lines get a glowing left border */
+.cl.user-cl{
+  border-left:2px solid rgba(120,160,255,.5);
+  padding-left:10px;
+  background:rgba(100,140,255,.04);
+  border-radius:0 5px 5px 0;
+  animation:user-line-in .4s ease;
+}
+@keyframes user-line-in{from{opacity:0;background:rgba(100,140,255,.12);}to{opacity:1;background:rgba(100,140,255,.04);}}
+.ln{
+  color:rgba(100,110,180,.5);
+  width:36px;text-align:right;flex-shrink:0;
+  user-select:none;font-weight:700;font-size:11px;
+  padding-top:1px;
+}
 .lc{flex:1;word-break:break-all;}
-.lc .kw{color:#ff7ab6;font-weight:700;}
+.lc .kw{color:#e879a0;font-weight:700;}
 .lc .fn{color:#4ade80;}
 .lc .str{color:#fbbf24;}
-.lc .cm{color:#2e3255;font-style:italic;}
-.cl.user-cl .lc{color:#7bbfff;}
+.lc .cm{color:rgba(100,110,160,.7);font-style:italic;}
+.lc .num{color:#fb923c;}
+.cl.user-cl .lc{color:#93c5fd;}
 
 /* ===== CTA ===== */
 #cta{position:relative;border-top:1px solid rgba(255,255,255,.08);overflow:hidden;text-align:center;}
@@ -495,9 +602,22 @@ footer{padding:48px 32px;border-top:1px solid rgba(255,255,255,.06);display:flex
             <button class="pa pri" id="upload-btn" onclick="document.getElementById('file-pick').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload</button>
           </div>
         </div>
-        <div id="view-exp"><div class="flist" id="exp-grid"></div></div>
+        <div id="view-exp">
+          <div id="catch-hdr" style="display:none;">
+            <div class="catch-header">
+              <div class="catch-pulse"></div>
+              <span class="catch-lbl">Auto Cache</span>
+              <span class="catch-count" id="catch-count-lbl">0 files</span>
+            </div>
+          </div>
+          <div class="flist catch-grid-bg" id="exp-grid"></div>
+        </div>
         <div id="view-log" style="display:none;flex-direction:column;">
-          <div class="log-bar"><div class="ldot"></div><span class="llbl">Live AI Log · +30 lines / hr</span></div>
+          <div class="log-bar">
+            <div class="ldot"></div>
+            <span class="llbl">AI Code Log</span>
+            <span class="log-live-badge">+30 lines / hr</span>
+          </div>
           <div class="log-inp-r">
             <input class="linp" id="log-inp" placeholder="Write code line… visible to everyone" onkeydown="if(event.key==='Enter')sendLine()">
             <button class="lsend" onclick="sendLine()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>Send</button>
@@ -646,9 +766,20 @@ const SYS={root:[{n:'ai_models',t:'folder'},{n:'runtime_env',t:'folder'},{n:'sys
 
 // ===== EXPLORER =====
 let cf='root',delId=null,tcf=0,cc=0;
-function syncExp(){showV('exp');document.getElementById('d-path').innerText=cf;document.getElementById('panel-title').innerText=cf==='root'?'File Explorer':cf.charAt(0).toUpperCase()+cf.slice(1).replace(/_/g,' ');document.getElementById('back-btn').style.display=cf==='root'?'none':'inline-flex';document.getElementById('upload-btn').style.display='inline-flex';const g=document.getElementById('exp-grid');g.innerHTML='';(SYS[cf]||[]).forEach(it=>addRow(it.n,it.s||'—',it.t,null,it.sp));if(cf==='catch'||cf==='root'){if(fbOK){try{db.collection('artifacts').doc(AID).collection('public').doc('data').collection('files').where('folder','==',cf).onSnapshot(snap=>{document.querySelectorAll('.cloud-row').forEach(el=>el.remove());let c=0;snap.forEach(doc=>{addRow(doc.data().name,doc.data().size,doc.data().type||'file',doc.id);c++;});if(cf==='catch'){cc=c;document.getElementById('stat-cache').innerText=c;}tcf=c;updStats();},()=>{fbOK=false;renderLC();});}catch(e){fbOK=false;renderLC();}}else renderLC();}}
-function renderLC(){document.querySelectorAll('.cloud-row').forEach(el=>el.remove());const list=LC.filter(f=>f.folder===cf);list.forEach(f=>addRow(f.name,f.size,f.type||'file',f.id));if(cf==='catch'){cc=list.length;document.getElementById('stat-cache').innerText=list.length;}tcf=list.length;updStats();}
-function addRow(name,size,type,id,sp){const g=document.getElementById('exp-grid');const row=document.createElement('div');row.className='frow'+(id?' cloud-row':'');const isF=type==='folder';const icoC=isF?(sp?'folder sp':'folder'):'file';const ico=isF?`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;const clk=isF?`style="cursor:none;" onclick="navTo('${name}')"` :'';const act=id?`<button class="dbtn" onclick="openDel('${id}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>`:`<svg class="lock-ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;row.innerHTML=`<div style="display:flex;align-items:center;gap:12px;overflow:hidden;" ${clk}><div class="fi ${icoC}">${ico}</div><div style="overflow:hidden;"><div class="fn${sp?' sp':''}">${name}</div><div class="fm">${size}${id?' · CLOUD':' · SYS'}</div></div></div><div>${act}</div>`;g.appendChild(row);}
+function syncExp(){showV('exp');document.getElementById('d-path').innerText=cf;document.getElementById('panel-title').innerText=cf==='root'?'File Explorer':cf.charAt(0).toUpperCase()+cf.slice(1).replace(/_/g,' ');document.getElementById('back-btn').style.display=cf==='root'?'none':'inline-flex';document.getElementById('upload-btn').style.display='inline-flex';
+  // show/hide catch header
+  const ch=document.getElementById('catch-hdr');
+  if(ch) ch.style.display=(cf==='catch')?'block':'none';
+  const g=document.getElementById('exp-grid');g.innerHTML='';
+  // add/remove catch-mode class
+  if(cf==='catch') g.classList.add('catch-mode'); else g.classList.remove('catch-mode');
+  (SYS[cf]||[]).forEach(it=>addRow(it.n,it.s||'—',it.t,null,it.sp));if(cf==='catch'||cf==='root'){if(fbOK){try{db.collection('artifacts').doc(AID).collection('public').doc('data').collection('files').where('folder','==',cf).onSnapshot(snap=>{document.querySelectorAll('.cloud-row').forEach(el=>el.remove());let c=0;snap.forEach(doc=>{addRow(doc.data().name,doc.data().size,doc.data().type||'file',doc.id);c++;});if(cf==='catch'){cc=c;document.getElementById('stat-cache').innerText=c;const cl=document.getElementById('catch-count-lbl');if(cl)cl.innerText=c+' files';}tcf=c;updStats();},()=>{fbOK=false;renderLC();});}catch(e){fbOK=false;renderLC();}}else renderLC();}}
+function renderLC(){document.querySelectorAll('.cloud-row').forEach(el=>el.remove());const list=LC.filter(f=>f.folder===cf);list.forEach(f=>addRow(f.name,f.size,f.type||'file',f.id));if(cf==='catch'){cc=list.length;document.getElementById('stat-cache').innerText=list.length;const cl=document.getElementById('catch-count-lbl');if(cl)cl.innerText=list.length+' files';}tcf=list.length;updStats();}
+function addRow(name,size,type,id,sp){const g=document.getElementById('exp-grid');const row=document.createElement('div');row.className='frow'+(id?' cloud-row':'');const isF=type==='folder';const icoC=isF?(sp?'folder sp':'folder'):'file';const ico=isF?`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>`:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;const clk=isF?`style="cursor:none;" onclick="navTo('${name}')"` :'';
+const metaHtml = id
+  ? `${size} <span class="cloud-badge">☁ CLOUD</span>`
+  : `${size} · SYS`;
+const act=id?`<button class="dbtn" onclick="openDel('${id}')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>`:`<svg class="lock-ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;row.innerHTML=`<div style="display:flex;align-items:center;gap:12px;overflow:hidden;" ${clk}><div class="fi ${icoC}">${ico}</div><div style="overflow:hidden;"><div class="fn${sp?' sp':''}">${name}</div><div class="fm">${metaHtml}</div></div></div><div>${act}</div>`;g.appendChild(row);}
 function navTo(p){cf=p;['btn-root','btn-catch','btn-logs'].forEach(id=>document.getElementById(id).classList.remove('on'));if(p==='root')document.getElementById('btn-root').classList.add('on');if(p==='catch')document.getElementById('btn-catch').classList.add('on');syncExp();}
 function goBack(){navTo('root');}
 async function uploadFile(e){const f=e.target.files[0];if(!f)return;const pl={name:f.name,size:(f.size/1024).toFixed(1)+' KB',folder:cf,type:'file'};if(fbOK){try{await db.collection('artifacts').doc(AID).collection('public').doc('data').collection('files').add(pl);toast('Uploaded to cloud');}catch(ex){fbOK=false;saveLC(pl);}}else saveLC(pl);e.target.value='';}
