@@ -473,18 +473,8 @@ footer{padding:48px 32px;border-top:1px solid rgba(255,255,255,.06);display:flex
   </div>
   <div class="hero-fade"></div>
   <div class="hero-body">
-    <div class="hero-avs ai d1">
-      <div class="av-stack">
-        <div class="av">K</div><div class="av">A</div><div class="av">M</div>
-      </div>
-      <span class="av-txt">7,000+ people already subscribed</span>
-    </div>
-    <h1 class="hero-h1 ai d2">Get <em>Inspired</em><br>with Us</h1>
-    <p class="hero-sub ai d3">Join our feed for meaningful updates, news around technology and a shared journey toward depth and direction.</p>
-    <div class="hero-form liquid-glass ai d4">
-      <input class="hero-inp" id="hero-email" type="email" placeholder="Enter your email address…">
-      <button class="hero-btn">SUBSCRIBE</button>
-    </div>
+    <h1 class="hero-h1 ai d1">Get <em>Inspired</em><br>with Us</h1>
+    <p class="hero-sub ai d2">Discover the universe in ways once unimaginable. Our pioneering platform brings AI hosting and deep-space exploration within reach — secure and extraordinary.</p>
   </div>
 </section>
 
@@ -703,10 +693,10 @@ function setupVid(el,src,loop){
     el.addEventListener('ended',()=>{el.style.opacity='0';setTimeout(()=>{el.currentTime=0;fo=false;el.play().catch(()=>{});fadeTo(1,FADE);},100);});
   }
 }
-setupVid(document.getElementById('hero-vid'),'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4',false);
+setupVid(document.getElementById('hero-vid'),'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4',false);
 setupVid(document.getElementById('mission-vid'),'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_132944_a0d124bb-eaa1-4082-aa30-2310efb42b4b.mp4',true);
 setupVid(document.getElementById('sol-vid'),'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_125119_8e5ae31c-0021-4396-bc08-f7aebeb877a2.mp4',true);
-setupVid(document.getElementById('cta-vid'),'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4',true);
+setupVid(document.getElementById('cta-vid'),'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4',true);
 
 // ===== INTERSECTION OBSERVER ANIMATIONS =====
 const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');});},{threshold:.08});
